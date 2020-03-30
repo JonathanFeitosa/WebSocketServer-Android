@@ -1,25 +1,34 @@
 package br.com.websocketserver.websocketserver.jobs;
 
-import br.com.websocketserver.websocketserver.SecureServer;
+import java.io.IOException;
+
+import br.com.websocketserver.websocketserver.WebSocketInfoServer;
 
 public class SecureServerThread extends Thread {
     private static final int SOCKETSERVER_PORT = 2234;
     private static final String SOCKETSERVER_ANDRESS = "localhost";
+    private static WebSocketInfoServer s = null;
 
+    private static WebSocketInfoServer.PublishFragment fragment;
 
-    SecureServer.PublishFragment fragment;
-    public SecureServerThread(SecureServer.PublishFragment fragment) {
-        this.fragment = fragment;
+    SecureServerThread(WebSocketInfoServer.PublishFragment fragment) {
+        SecureServerThread.fragment = fragment;
     }
 
     @Override
     public void run() {
-        SecureServer s = new SecureServer(SOCKETSERVER_ANDRESS, SOCKETSERVER_PORT, fragment);
-       // SSLContext sslContext = SecureServer.getSSLContextFromAndroidKeystore();
-     //   s.setWebSocketFactory(new DefaultSSLWebSocketServerFactory( sslContext ));
-        fragment.publish("Server initiated at port " + SOCKETSERVER_PORT);
+        s = new WebSocketInfoServer(SOCKETSERVER_ANDRESS, SOCKETSERVER_PORT, fragment);
+        fragment.publish("Server iniciado na porta " + SOCKETSERVER_ANDRESS + ":"  +SOCKETSERVER_PORT);
         s.run();
     }
 
-
+    public static void stopThread() {
+        try {
+            s.stop();
+            currentThread().interrupt();
+            fragment.publish("Server finalizado: " + SOCKETSERVER_ANDRESS + ":"  +SOCKETSERVER_PORT);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

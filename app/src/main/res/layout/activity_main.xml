@@ -7,17 +7,6 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/clientClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="CLIENT CLOSE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clientReconnect" />
-
-    <Button
         android:id="@+id/serverOn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,18 +22,9 @@
         android:layout_marginTop="32dp"
         android:text="Client Connect"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/serverOn" />
-
-    <Button
-        android:id="@+id/clientSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Client SEND"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clientConnect" />
+        app:layout_constraintTop_toBottomOf="@+id/serverOff" />
 
     <Button
         android:id="@+id/clientReconnect"
@@ -53,6 +33,40 @@
         android:layout_marginTop="16dp"
         android:text="CLIENT RECONNECT"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clientSend" />
+
+    <Button
+        android:id="@+id/serverOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="SERVEROFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/serverOn" />
+
+    <Button
+        android:id="@+id/clientClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="CLIENT CLOSE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clientReconnect" />
+
+    <Button
+        android:id="@+id/clientSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Client SEND"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clientConnect" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

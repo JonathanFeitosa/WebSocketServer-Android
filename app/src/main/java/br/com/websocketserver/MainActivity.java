@@ -6,23 +6,27 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
+
+import br.com.websocketserver.websocketserver.jobs.SecureServerThread;
 import br.com.websocketserver.websocketserver.jobs.StartService;
-import br.com.websocketserver.websocketclient.SSLClientExample;
+import br.com.websocketserver.websocketclient.WebSocketSSLClient;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button serverOn, clientOn, clientReconnect, clientClose, clientSend;
+    Button serverOn, serverOff, clientOn, clientReconnect, clientClose, clientSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        serverOn = (Button) findViewById(R.id.serverOn);
-        clientOn = (Button) findViewById(R.id.clientConnect);
-        clientReconnect = (Button) findViewById(R.id.clientReconnect);
-        clientClose = (Button) findViewById(R.id.clientClose);
-        clientSend = (Button) findViewById(R.id.clientSend);
+        serverOn = findViewById(R.id.serverOn);
+        serverOff = findViewById(R.id.serverOff);
+
+        clientOn = findViewById(R.id.clientConnect);
+        clientReconnect = findViewById(R.id.clientReconnect);
+        clientClose = findViewById(R.id.clientClose);
+        clientSend = findViewById(R.id.clientSend);
 
         serverOn.setOnClickListener(v -> {
             Intent startServiceIntent = new Intent(MainActivity.this, StartService.class);
@@ -33,23 +37,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        clientOn.setOnClickListener(v -> {
-            SSLClientExample.createConnection();;
+        serverOff.setOnClickListener(v -> SecureServerThread.stopThread());
 
-        });
+        clientOn.setOnClickListener(v -> WebSocketSSLClient.createConnection());
 
-        clientReconnect.setOnClickListener(v -> {
-            SSLClientExample.reconnectSocket();;
+        clientReconnect.setOnClickListener(v -> WebSocketSSLClient.reconnectSocket());
 
-        });
+        clientClose.setOnClickListener(v -> WebSocketSSLClient.closeSocket());
 
-        clientClose.setOnClickListener(v -> {
-            SSLClientExample.closeSocket();;
-
-        });
-
-        clientSend.setOnClickListener(v -> {
-            SSLClientExample.sendMessageSocket("Teste");;
-        });
+        clientSend.setOnClickListener(v -> WebSocketSSLClient.sendMessageSocket("Teste"));
     }
 }

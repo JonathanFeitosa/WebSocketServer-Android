@@ -13,14 +13,14 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import br.com.websocketserver.websocketserver.SecureServer;
+import br.com.websocketserver.websocketserver.WebSocketInfoServer;
 
-public class StartService extends IntentService implements SecureServer.PublishFragment {
+public class StartService extends IntentService implements WebSocketInfoServer.PublishFragment {
     // TODO: Rename actions, choose action names that describe tasks that this
-    private static final String TAG = "MyService";
+    private static final String TAG = "WebSocketServerTRIAD";
 
     public StartService() {
-        super("StartService");
+        super("WebSocketServerTRIAD");
     }
 
     @Override
@@ -28,14 +28,12 @@ public class StartService extends IntentService implements SecureServer.PublishF
         if (intent != null) {
             SecureServerThread serverThread = new SecureServerThread(this);
             serverThread.start();
-            publish("GERTEC Service Started");
+            publish("Service Started");
         }
     }
 
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
-        Log.i(TAG, "onStartCommand()");
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             String NOTIFICATION_CHANNEL_ID = "br.com.websocketserver";
@@ -58,7 +56,7 @@ public class StartService extends IntentService implements SecureServer.PublishF
         }
         SecureServerThread serverThread = new SecureServerThread(this);
         serverThread.start();
-        publish("GERTEC Service Started");
+        publish("Service Started");
 
         return START_NOT_STICKY;
     }
@@ -66,16 +64,11 @@ public class StartService extends IntentService implements SecureServer.PublishF
     @Override
     public void onDestroy() {
         super.onDestroy();
-        publish("GERTEC Service Destroyed");
+        publish("Service Destroyed");
     }
 
     @Override
     public void publish(String var) {
         Log.d(TAG, var);
-    }
-
-    @Override
-    public Context getContext() {
-        return getBaseContext();
     }
 }
