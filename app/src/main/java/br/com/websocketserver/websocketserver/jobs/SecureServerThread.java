@@ -1,5 +1,4 @@
 package br.com.websocketserver.websocketserver.jobs;
-
 import java.io.IOException;
 
 import br.com.websocketserver.websocketserver.WebSocketInfoServer;

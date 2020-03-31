@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 public class WebSocketSSLClient {
 
     private static WebSocketInfoClient chatclient;
+    private static Boolean clientConnect;
 
     public static void createConnection() {
         try {
@@ -14,6 +15,7 @@ public class WebSocketSSLClient {
             e.printStackTrace();
         }
         chatclient.connect();
+        clientConnect = true;
     }
 
     public static void closeSocket() {
@@ -22,13 +24,16 @@ public class WebSocketSSLClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        clientConnect = false;
+
     }
 
     public static void reconnectSocket() {
         chatclient.reconnect();
+        clientConnect = true;
     }
 
-    public static void sendMessageSocket(String text) {
-        chatclient.send(text);
-    }
+    public static void sendMessageSocket(String text) { if(clientConnect()) chatclient.send(text); }
+
+    public static boolean clientConnect(){ return clientConnect; }
 }

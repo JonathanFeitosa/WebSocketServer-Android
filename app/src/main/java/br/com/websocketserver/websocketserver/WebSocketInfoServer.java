@@ -1,10 +1,33 @@
 package br.com.websocketserver.websocketserver;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+
+import br.com.websocketserver.ActivityQRCode;
+import br.com.websocketserver.MainActivity;
+import br.com.websocketserver.R;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 
 public class WebSocketInfoServer extends WebSocketServer {
@@ -52,11 +75,14 @@ public class WebSocketInfoServer extends WebSocketServer {
     @Override
     public void onMessage(WebSocket conn, String message) {
         fragment.publish("Uma mensagem foi recebida de "	+ conn.getRemoteSocketAddress() + ": " + message);
-
-        conn.send(message);
+        if(message.equals("tirarFoto")){
+            fragment.getContext().startActivity(new Intent(fragment.getContext(), ActivityQRCode.class));
+        }
+        conn.send("Sua mensagem " + message + " foi recebida com sucesso!");
     }
 
     public interface PublishFragment {
         void publish(String var);
+        Context getContext();
     }
 }

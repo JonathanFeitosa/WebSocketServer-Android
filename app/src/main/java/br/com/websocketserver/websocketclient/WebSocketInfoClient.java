@@ -1,10 +1,12 @@
 package br.com.websocketserver.websocketclient;
 
 import android.util.Log;
+
+import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 
-class WebSocketInfoClient extends org.java_websocket.client.WebSocketClient {
+class WebSocketInfoClient extends WebSocketClient {
 
     WebSocketInfoClient(URI serverUri) {
         super(serverUri);
@@ -17,7 +19,7 @@ class WebSocketInfoClient extends org.java_websocket.client.WebSocketClient {
 
     @Override
     public void onMessage(String message) {
-        Log.i("WebSocketClientTRIAD:", "Enviado com sucesso: " + message);
+        Log.i("WebSocketClientTRIAD:", "Mensagem recebida do servidor: " + message);
     }
 
     @Override

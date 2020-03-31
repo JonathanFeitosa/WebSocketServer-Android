@@ -71,4 +71,10 @@ public class StartService extends IntentService implements WebSocketInfoServer.P
     public void publish(String var) {
         Log.d(TAG, var);
     }
+
+    @Override
+    public Context getContext() {
+        return getBaseContext();
+    }
+
 }
