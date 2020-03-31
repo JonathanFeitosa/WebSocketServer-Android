@@ -6,14 +6,8 @@ import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.zxing.Result;
-
-import java.util.Objects;
-
 import br.com.websocketserver.websocketclient.WebSocketSSLClient;
-import br.com.websocketserver.websocketserver.jobs.SecureServerThread;
-import br.com.websocketserver.websocketserver.jobs.StartService;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ActivityQRCode extends AppCompatActivity implements ZXingScannerView.ResultHandler {

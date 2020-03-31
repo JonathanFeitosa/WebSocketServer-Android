@@ -35,5 +35,5 @@ public class WebSocketSSLClient {
 
     public static void sendMessageSocket(String text) { if(clientConnect()) chatclient.send(text); }
 
-    public static boolean clientConnect(){ return clientConnect; }
+    private static boolean clientConnect(){ return clientConnect; }
 }
