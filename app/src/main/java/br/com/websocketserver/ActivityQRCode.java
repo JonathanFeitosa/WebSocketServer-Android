@@ -54,7 +54,7 @@ public class ActivityQRCode extends AppCompatActivity implements ZXingScannerVie
 
         mScannerView.stopCamera();
 
-        WebSocketSSLClient.sendMessageSocket("InfoCode: " + rawResult.getText() + " (" + rawResult.getBarcodeFormat().toString() + ")";
+        WebSocketSSLClient.sendMessageSocket("InfoCode: " + rawResult.getText() + " (" + rawResult.getBarcodeFormat().toString() + ")");
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
