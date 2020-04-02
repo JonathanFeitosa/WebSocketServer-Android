@@ -19,10 +19,30 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    signingConfigs {
+        release {
+            storeFile file("Development_GertecDeveloper_CustomerAPP.jks")
+            storePassword 'Development@GertecDeveloper2018'
+            keyAlias 'developmentgertecdeveloper_customerapp'
+            keyPassword 'Development@GertecDeveloper2018'
+        }
+        config {
+            storeFile file("Development_GertecDeveloper_CustomerAPP.jks")
+            storePassword 'Development@GertecDeveloper2018'
+            keyAlias 'developmentgertecdeveloper_customerapp'
+            keyPassword 'Development@GertecDeveloper2018'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            jniDebuggable true
+            debuggable true
+            signingConfig signingConfigs.config
         }
     }
 
@@ -38,7 +58,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation "org.java-websocket:Java-WebSocket:1.4.1"
-    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+
+    implementation ('com.google.zxing:core:3.2.1')
+    implementation ('com.journeyapps:zxing-android-embedded:3.4.0')
+
 
 
 }

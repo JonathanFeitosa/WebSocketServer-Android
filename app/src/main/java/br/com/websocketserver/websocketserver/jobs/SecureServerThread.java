@@ -17,6 +17,7 @@ public class SecureServerThread extends Thread {
     @Override
     public void run() {
         s = new WebSocketInfoServer(SOCKETSERVER_ANDRESS, SOCKETSERVER_PORT, fragment);
+        s.setReuseAddr(true);
         fragment.publish("Server iniciado na porta " + SOCKETSERVER_ANDRESS + ":"  +SOCKETSERVER_PORT);
         s.run();
     }

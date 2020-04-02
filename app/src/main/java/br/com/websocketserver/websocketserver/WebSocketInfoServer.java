@@ -42,7 +42,7 @@ public class WebSocketInfoServer extends WebSocketServer {
 
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-        fragment.publish(conn + " saiu do canal!");
+        fragment.publish(conn.getLocalSocketAddress() + " saiu do canal!");
     }
 
     @Override
@@ -55,7 +55,7 @@ public class WebSocketInfoServer extends WebSocketServer {
     public void onMessage(WebSocket conn, String message) {
         fragment.publish("Uma mensagem foi recebida de "	+ conn.getRemoteSocketAddress() + ": " + message);
         if(message.equals("tirarFoto")){
-            fragment.getContext().startActivity(new Intent(fragment.getContext(), ActivityQRCode.class));
+            fragment.getContext().startActivity(new Intent(fragment.getContext(), ActivityQRCode.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         conn.send("Sua mensagem " + message + " foi recebida com sucesso!");
     }

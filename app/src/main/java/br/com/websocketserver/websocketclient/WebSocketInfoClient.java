@@ -19,7 +19,7 @@ class WebSocketInfoClient extends WebSocketClient {
 
     @Override
     public void onMessage(String message) {
-        Log.i("WebSocketClientTRIAD:", "Mensagem recebida do servidor: " + message);
+        Log.i("WebSocketClientTRIAD:", "Servidor: " + message);
     }
 
     @Override
