@@ -1,4 +1,4 @@
-package br.com.websocketserver;
+package br.com.gertec.server;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("br.com.websocketserver", appContext.getPackageName());
+        assertEquals("br.com.gertec.server", appContext.getPackageName());
     }
 }

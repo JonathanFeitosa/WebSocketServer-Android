@@ -1,4 +1,4 @@
-package br.com.websocketserver;
+package br.com.gertec.server;
 
 import org.junit.Test;
 

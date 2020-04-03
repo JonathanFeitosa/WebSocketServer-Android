@@ -1,4 +1,4 @@
-package br.com.websocketserver.websocketserver;
+package br.com.gertec.server.socket;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,8 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import br.com.websocketserver.ActivityQRCode;
+
+import br.com.gertec.server.barcode.ActivityQRCode;
 
 public class WebSocketInfoServer extends WebSocketServer {
 
@@ -22,7 +23,7 @@ public class WebSocketInfoServer extends WebSocketServer {
     public void onError(WebSocket conn, Exception ex) {
         ex.printStackTrace();
         if (conn != null) {
-            fragment.publish("Ocorreu um erro de comunicação com " + conn.getRemoteSocketAddress()  + ":" + ex);
+            fragment.publish("Ocorreu um erro de comunicação com " + conn.getRemoteSocketAddress() + ":" + ex);
         }
     }
 
@@ -35,8 +36,6 @@ public class WebSocketInfoServer extends WebSocketServer {
 
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
-        //conn.send("Welcome to the server!"); //This method sends a message to the new client
-        //broadcast("new connection: " + handshake.getResourceDescriptor()); //This method sends a message to all clients connected
         fragment.publish(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " Entrou no canal!");
     }
 
@@ -53,15 +52,32 @@ public class WebSocketInfoServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket conn, String message) {
-        fragment.publish("Uma mensagem foi recebida de "	+ conn.getRemoteSocketAddress() + ": " + message);
-        if(message.equals("tirarFoto")){
-            fragment.getContext().startActivity(new Intent(fragment.getContext(), ActivityQRCode.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
+        fragment.publish("Uma mensagem foi recebida de " + conn.getRemoteSocketAddress() + ": " + message);
         conn.send("Sua mensagem " + message + " foi recebida com sucesso!");
+        messageReceived(conn.getRemoteSocketAddress(), WebSocketMessages.setValue(message));
     }
 
     public interface PublishFragment {
         void publish(String var);
+
         Context getContext();
+    }
+
+    private void messageReceived(InetSocketAddress conn, WebSocketMessages msg) {
+
+        switch (msg) {
+            case BARCODE: {
+                fragment.getContext().startActivity(
+                        new Intent(fragment.getContext(), ActivityQRCode.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("infoUser", conn));
+            }
+            case PRINTER: {
+
+            }
+            case UNDEFINED: {
+
+            }
+        }
     }
 }

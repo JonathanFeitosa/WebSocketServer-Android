@@ -1,4 +1,4 @@
-package br.com.websocketserver.websocketserver.jobs;
+package br.com.gertec.server.jobs;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -9,18 +9,16 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-
-import br.com.websocketserver.websocketserver.WebSocketInfoServer;
+import br.com.gertec.server.socket.WebSocketInfoServer;
 
 public class StartService extends IntentService implements WebSocketInfoServer.PublishFragment {
     // TODO: Rename actions, choose action names that describe tasks that this
-    private static final String TAG = "WebSocketServerTRIAD";
+    private static final String TAG = "GertecServer";
 
     public StartService() {
-        super("WebSocketServerTRIAD");
+        super("GertecServer");
     }
 
     @Override
@@ -36,7 +34,7 @@ public class StartService extends IntentService implements WebSocketInfoServer.P
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            String NOTIFICATION_CHANNEL_ID = "br.com.websocketserver";
+            String NOTIFICATION_CHANNEL_ID = "br.com.gertec.server";
             String channelName = "Background Service";
             NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
             chan.setLightColor(Color.BLUE);

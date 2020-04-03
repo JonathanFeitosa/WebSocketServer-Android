@@ -1,4 +1,4 @@
-package br.com.websocketserver;
+package br.com.gertec.server.barcode;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +7,21 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import br.com.websocketserver.websocketclient.WebSocketSSLClient;
+import java.net.InetSocketAddress;
+
+import br.com.gertec.server.R;
+import br.com.gertec.server.jobs.SecureServerThread;
 
 public class ActivityQRCode extends AppCompatActivity {
+
+    private InetSocketAddress infoUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode);
+
+        infoUser = (InetSocketAddress) getIntent().getSerializableExtra("infoUser");
 
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES); //passa o tipo de código que se quer na leitura
@@ -42,8 +49,7 @@ public class ActivityQRCode extends AppCompatActivity {
             } else {
 
                 Log.e("WebSocketITRIAD-QRCode", "InfoCode: " + result.getContents() + " (" +  result.getFormatName() + ")"); // Prints scan results
-                WebSocketSSLClient.sendMessageSocket("InfoCode: " + result.getContents() + " (" +  result.getFormatName() + ")");
-                startActivity(new Intent(this, MainActivity.class));
+                SecureServerThread.sendMessageClient(infoUser, "InfoCode: " + result.getContents() + " (" +  result.getFormatName() + ")");
                 finish();
             }
         } else {
