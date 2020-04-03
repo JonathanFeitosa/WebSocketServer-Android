@@ -1,2 +1,2 @@
-rootProject.name='Gertec Server'
+rootProject.name='GertecServer'
 include ':app'
